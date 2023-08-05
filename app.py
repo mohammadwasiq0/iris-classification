@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sn
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -57,7 +58,6 @@ def get_model(model_name):
         return None
 
 def get_hyperparameters(model_name):
-    # Add hyperparameter options for each classifier as needed
     if model_name == "Logistic Regression":
         return {"C": [0.1, 1.0, 10.0]}
     elif model_name == "Support Vector Machine (SVM)":
@@ -97,7 +97,7 @@ def plot_confusion_matrix(y_true, y_pred, target_names):
     sn.heatmap(df_cm, annot=True, cmap="Blues", fmt="d")
     plt.xlabel("Predicted Label")
     plt.ylabel("True Label")
-    st.pyplot()
+    return plt
 
 def main():
     st.title("Classification Algorithms with Hyperparameter Tuning")
@@ -134,3 +134,4 @@ def main():
         # Plot confusion matrix
         target_names = data.target_names
         plot_confusion_matrix(y, y_pred, target_names)
+        
